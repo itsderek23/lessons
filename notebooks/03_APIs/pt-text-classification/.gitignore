@@ -19,3 +19,6 @@ tensorboard/
 
 # dotenv
 .env
+
+# Sagemaker
+build/
