@@ -11,14 +11,17 @@ from text_classification import config
 env = DeployEnv()
 
 def s3_bucket_from_url(s3_url):
-    return re.search('//(\w+)',s3_url).groups()[0]
+    return re.search('//(.+)/',s3_url).groups()[0]
 
 def upload_model_data():
     if env.isLocal():
         return
-    config.logger.info("Uploading model.tar.gz to S3...")
+    bucket_name = s3_bucket_from_url(env.setting('model_data_path'))
+    config.logger.info("Uploading model.tar.gz to S3 bucket=%s..." % (bucket_name))
     s3 = boto3.resource('s3')
-    return s3.Bucket(s3_bucket_from_url(env.setting('model_data_path'))).upload_file("build/model.tar.gz", "model.tar.gz")
+    s3.create_bucket(Bucket=bucket_name)
+    return s3.Bucket(bucket_name).upload_file("build/model.tar.gz", "model.tar.gz")
+    config.logger.info("\t...DONE.")
 
 def build_model_data_file():
     return os.system("tar -czf build/model.tar.gz experiments text_classification logging.json")
