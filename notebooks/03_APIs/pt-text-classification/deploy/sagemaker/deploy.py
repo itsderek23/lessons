@@ -55,7 +55,7 @@ def deploy():
     predictor = pytorch_model.deploy(
         instance_type = env.setting('instance_type'),
         # Below isn't working: https://github.com/aws/sagemaker-python-sdk/issues/101#issuecomment-607376320
-        update_endpoint = update_endpoint_if_exists(),
+        # update_endpoint = update_endpoint_if_exists(),
         initial_instance_count = 1)
 
 if __name__ == '__main__':
