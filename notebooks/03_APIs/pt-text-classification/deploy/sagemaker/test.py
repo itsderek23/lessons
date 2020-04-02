@@ -11,11 +11,11 @@ payload = [["The Wimbledon tennis tournament starts next week!"],["The Canadian 
 
 # https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/sagemaker-runtime.html#SageMakerRuntime.Client.invoke_endpoint
 response = env.runtime_client().invoke_endpoint(
-    EndpointName="madewithml",
+    EndpointName=env.setting("model_name"),
     ContentType="application/json",
     Accept="application/json",
     Body=json.dumps(payload)
-    )
+)
 
 print("Response=",response)
 response_body = json.loads(response['Body'].read())
