@@ -9,3 +9,5 @@ tensorboard==2.1.1
 torch==1.4.0
 tqdm==4.43.0
 uvicorn==0.11.3
+sagemaker==1.55.0
+sagemaker[local]
