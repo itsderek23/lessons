@@ -1,0 +1,13 @@
+environments:
+  default: &default
+    model_name: pytorch-text-class2
+    aws_role: arn:aws:iam::[AWS ACCOUNT ID]:role/AmazonSageMakerFullAccess
+    image_url: "[AWS ACCOUNT ID].dkr.ecr.us-east-1.amazonaws.com/mlflow-pyfunc:1.5.0"
+    region: us-east-1
+  local:
+    <<: *default
+    instance_type: local
+    model_data_path: 'file://build/model.tar.gz'
+  production:
+    <<: *default
+    instance_type: ml.t2.medium # smallest/cheapest sagemaker allowed size

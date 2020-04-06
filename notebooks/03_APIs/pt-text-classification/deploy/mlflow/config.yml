@@ -1,0 +1,8 @@
+environments:
+  default: &default
+    model_name: pytorch-text-class
+    workspace_config_path: "~/.azure/config.json"
+  local:
+    <<: *default
+  production:
+    <<: *default
